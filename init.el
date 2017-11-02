@@ -109,6 +109,12 @@
   :config
   (add-hook 'git-commit-mode-hook 'evil-insert-state))
 
+(use-package highlight-symbol
+  :diminish highlight-symbol-mode
+  :init
+  (add-hook 'prog-mode-hook 'highlight-symbol-mode)
+  (add-hook 'prog-mode-hook 'highlight-symbol-nav-mode))
+
 (use-package magit
   :bind ("C-c g" . magit-status)
   :config
