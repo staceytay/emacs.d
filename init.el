@@ -77,6 +77,9 @@
 (global-hl-line-mode)
 (show-paren-mode 1)
 
+(use-package avy
+  :bind ("C-;" . avy-goto-char))
+
 (use-package company
   :diminish company-mode
   :bind
