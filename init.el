@@ -81,6 +81,7 @@
   :bind ("M-s" . rg))
 
 (use-package which-key
+  :diminish which-key-mode
   :init (which-key-mode))
 
 ;;----------------------------------------------------------------------------
@@ -148,12 +149,18 @@
   :init
   (add-hook 'prog-mode-hook 'rainbow-delimiters-mode))
 
+(use-package smartparens
+  :diminish smartparens-mode
+  :init
+  (add-hook 'after-init-hook 'smartparens-global-mode))
+
 (use-package undo-tree
   :diminish undo-tree-mode)
 
 ;; Whitespace stuff
 (use-package whitespace-cleanup-mode
-  :diminish whitespace-mode
+  :diminish (whitespace-cleanup-mode
+	     whitespace-mode)
   :init (add-hook 'prog-mode-hook 'whitespace-cleanup-mode)
   :config
   (add-hook 'prog-mode-hook 'whitespace-mode)
@@ -181,10 +188,6 @@
   :diminish aggressive-indent-mode
   :config
   (add-hook 'emacs-lisp-mode-hook 'aggressive-indent-mode))
-
-(use-package smartparens
-  :init
-  (add-hook 'after-init-hook 'smartparens-global-mode))
 
 ;; JS
 (defun s/use-eslint-from-node-modules ()
