@@ -46,7 +46,11 @@
 (global-hl-line-mode)
 (setq
  inhibit-splash-screen t
- inhibit-startup-message t)
+ inhibit-startup-message t
+ uniquify-after-kill-buffer-p t
+ uniquify-buffer-name-style 'reverse
+ uniquify-ignore-buffers-re "^\\*"
+ uniquify-separator " • ")
 (setq-default
  column-number-mode t)
 (show-paren-mode 1)
