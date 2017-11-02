@@ -73,6 +73,7 @@
 ;;----------------------------------------------------------------------------
 
 (global-hl-line-mode)
+(show-paren-mode 1)
 
 (use-package company
   :diminish company-mode
