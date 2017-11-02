@@ -118,7 +118,7 @@
 
 (use-package rainbow-delimiters
   :init
-  (add-hook 'after-init-hook 'rainbow-delimiters-mode))
+  (add-hook 'prog-mode-hook 'rainbow-delimiters-mode))
 
 (use-package undo-tree
   :diminish undo-tree-mode)
