@@ -142,7 +142,11 @@
   (add-hook 'after-init-hook 'projectile-global-mode)
   :config
   (use-package counsel-projectile
-    :bind ("C-c s" . counsel-projectile-rg))
+    :bind
+    (:map projectile-command-map
+	  ("b" . counsel-projectile-switch-to-buffer)
+	  ("f" . counsel-projectile-find-file)
+	  ("s" . counsel-projectile-rg)))
   (setq projectile-completion-system 'ivy))
 
 (use-package rainbow-delimiters
