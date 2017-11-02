@@ -105,8 +105,10 @@
   (add-hook 'git-commit-mode-hook 'evil-insert-state))
 
 (use-package magit
-  :bind ("C-x g" . magit-status)
+  :bind ("C-c g" . magit-status)
   :config
+  (use-package fullframe
+    :config (fullframe magit-status magit-mode-quit-window))
   (setq-default magit-diff-refine-hunk t))
 (diminish 'auto-revert-mode)
 (global-auto-revert-mode)
