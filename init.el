@@ -123,7 +123,9 @@
   :init (evil-mode t)
   :bind
   (:map evil-insert-state-map
-	([tab] . company-complete))
+	([tab] . company-complete)
+	:map ivy-occur-mode-map
+	("<return>" . ivy-occur-press-and-switch))
   :config
   (add-hook 'git-commit-mode-hook 'evil-insert-state))
 
@@ -154,11 +156,7 @@
   (add-hook 'after-init-hook 'projectile-global-mode)
   :config
   (use-package counsel-projectile
-    :bind
-    (:map projectile-command-map
-	  ("b" . counsel-projectile-switch-to-buffer)
-	  ("f" . counsel-projectile-find-file)
-	  ("s" . counsel-projectile-rg)))
+    :config (counsel-projectile-on))
   (setq projectile-completion-system 'ivy))
 
 (use-package rainbow-delimiters
