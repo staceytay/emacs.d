@@ -132,9 +132,12 @@
   :diminish undo-tree-mode)
 
 (use-package whitespace-cleanup-mode
-  :init
-  (add-hook 'prog-mode-hook 'whitespace-cleanup-mode))
-(setq-default show-trailing-whitespace t)
+  :init (add-hook 'prog-mode-hook 'whitespace-cleanup-mode)
+  :config
+  (add-hook 'prog-mode-hook 'whitespace-mode)
+  (setq whitespace-line-column 80)
+  (setq whitespace-style '(face lines-tail))
+  (setq-default show-trailing-whitespace t))
 
 ;;----------------------------------------------------------------------------
 ;; Programming Languages
