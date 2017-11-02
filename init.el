@@ -95,9 +95,7 @@
 	("M-n" . nil)
 	("M-p" . nil)
 	("C-n" . company-select-next)
-	("C-p" . company-select-previous)
-	:map evil-insert-state-map
-	([tab] . company-complete))
+	("C-p" . company-select-previous))
   :init
   (add-hook 'after-init-hook 'global-company-mode)
   :config
@@ -109,6 +107,9 @@
 
 (use-package evil
   :init (evil-mode t)
+  :bind
+  (:map evil-insert-state-map
+	([tab] . company-complete))
   :config
   (add-hook 'git-commit-mode-hook 'evil-insert-state))
 
