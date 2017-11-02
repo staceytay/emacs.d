@@ -109,6 +109,9 @@
   :config
   (add-hook 'git-commit-mode-hook 'evil-insert-state))
 
+(use-package flycheck
+  :init (add-hook 'prog-mode-hook 'flycheck-mode))
+
 (use-package highlight-symbol
   :diminish highlight-symbol-mode
   :init
