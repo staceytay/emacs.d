@@ -40,8 +40,11 @@
 (scroll-bar-mode -1)
 (tool-bar-mode -1)
 (tooltip-mode -1)
-(setq inhibit-splash-screen t)
-(setq inhibit-startup-message t)
+(setq
+ inhibit-splash-screen t
+ inhibit-startup-message t)
+(setq-default
+ column-number-mode t)
 
 (use-package counsel
   :demand t
