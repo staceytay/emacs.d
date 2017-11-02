@@ -58,14 +58,15 @@
 (use-package counsel
   :demand t
   :diminish ivy-mode
-  :bind (("C-s" . counsel-grep-or-swiper)
-	 ("C-x C-f" . counsel-find-file)
-	 ("C-x f" . counsel-recentf)
-	 :map ivy-minibuffer-map
-	 ("<return>" . ivy-alt-done)
-	 ("C-j" . ivy-immediate-done)
-	 :map swiper-map
-	 ("C-r" . ivy-previous-line))
+  :bind
+  (("C-s" . counsel-grep-or-swiper)
+   ("C-x C-f" . counsel-find-file)
+   ("C-x f" . counsel-recentf)
+   :map ivy-minibuffer-map
+   ("<return>" . ivy-alt-done)
+   ("C-j" . ivy-immediate-done)
+   :map swiper-map
+   ("C-r" . ivy-previous-line))
   :init
   (add-hook 'after-init-hook 'ivy-mode)
   :config
