@@ -40,11 +40,16 @@
 (scroll-bar-mode -1)
 (tool-bar-mode -1)
 (tooltip-mode -1)
+
+;; Basic Preferences
+(defalias 'yes-or-no-p 'y-or-n-p)
+(global-hl-line-mode)
 (setq
  inhibit-splash-screen t
  inhibit-startup-message t)
 (setq-default
  column-number-mode t)
+(show-paren-mode 1)
 
 (use-package counsel
   :demand t
@@ -81,9 +86,6 @@
 ;;----------------------------------------------------------------------------
 ;; Editing Utils
 ;;----------------------------------------------------------------------------
-
-(global-hl-line-mode)
-(show-paren-mode 1)
 
 (use-package avy
   :bind ("C-;" . avy-goto-char))
