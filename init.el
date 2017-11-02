@@ -179,3 +179,41 @@
 (use-package smartparens
   :init
   (add-hook 'after-init-hook 'smartparens-global-mode))
+
+;; JS
+(defun s/use-eslint-from-node-modules ()
+  "Use local eslint from node_modules."
+  (let* ((root (locate-dominating-file
+		(or (buffer-file-name) default-directory)
+		"node_modules"))
+	 (eslint (and root
+		      (expand-file-name "node_modules/eslint/bin/eslint.js"
+					root))))
+    (when (and eslint (file-executable-p eslint))
+      (setq-local flycheck-javascript-eslint-executable eslint))))
+
+(use-package web-mode
+  :mode ("\\.js[x]?\\'" . web-mode)
+  :config
+  (use-package prettier-js
+    :diminish prettier-js-mode
+    :config
+    (add-hook 'web-mode-hook 'prettier-js-mode)
+    (setq prettier-js-args '("--trailing-comma" "es5")))
+  (use-package tern
+    :config
+    (add-hook 'web-mode-hook 'tern-mode)
+    (use-package company-tern
+      :config
+      (add-to-list 'company-backends 'company-tern)
+      (setq company-tern-property-marker " <p>")))
+  (add-hook 'flycheck-mode-hook #'s/use-eslint-from-node-modules)
+  (add-to-list 'web-mode-comment-formats '("jsx" . "//" ))
+  (flycheck-add-mode 'javascript-eslint 'web-mode)
+  (setq web-mode-code-indent-offset 2)
+  (setq web-mode-content-types-alist '(("jsx"  . "\\.js[x]?\\'")))
+  (setq web-mode-enable-auto-quoting nil)
+  (setq web-mode-markup-indent-offset 2)
+  (set-face-attribute 'web-mode-html-attr-name-face nil :foreground (face-attribute 'font-lock-variable-name-face :foreground))
+  (set-face-attribute 'web-mode-html-tag-bracket-face nil :foreground (face-attribute 'default :foreground))
+  (set-face-attribute 'web-mode-html-tag-face nil :foreground (face-attribute 'default :foreground)))
