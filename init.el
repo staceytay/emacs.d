@@ -242,3 +242,12 @@
   (set-face-attribute 'web-mode-html-attr-name-face nil :foreground (face-attribute 'font-lock-variable-name-face :foreground))
   (set-face-attribute 'web-mode-html-tag-bracket-face nil :foreground (face-attribute 'default :foreground))
   (set-face-attribute 'web-mode-html-tag-face nil :foreground (face-attribute 'default :foreground)))
+
+;;----------------------------------------------------------------------------
+;; Writing
+;;----------------------------------------------------------------------------
+
+(use-package olivetti
+  :bind
+  (("C-c o" . olivetti-mode)
+   ("C-c m" . olivetti-toggle-hide-mode-line)))
