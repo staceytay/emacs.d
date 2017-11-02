@@ -70,6 +70,7 @@
   :init
   (add-hook 'after-init-hook 'ivy-mode)
   :config
+  (global-set-key (kbd "C-c C-m") 'execute-extended-command)
   (global-set-key [remap execute-extended-command] 'counsel-M-x)
   (setq ivy-height 20
 	ivy-use-virtual-buffers t)
@@ -82,7 +83,7 @@
 
 
 (use-package rg
-  :bind ("M-s" . rg))
+  :bind ("C-c s" . rg))
 
 (use-package scratch)
 
