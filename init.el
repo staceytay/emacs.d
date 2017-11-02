@@ -169,6 +169,9 @@
   :init
   (add-hook 'after-init-hook 'smartparens-global-mode))
 
+(use-package string-inflection
+  :bind ("M-i". string-inflection-all-cycle))
+
 (use-package undo-tree
   :diminish undo-tree-mode)
 
@@ -224,6 +227,11 @@
     :config
     (add-hook 'web-mode-hook 'prettier-js-mode)
     (setq prettier-js-args '("--trailing-comma" "es5")))
+  (use-package rainbow-mode
+    :diminish rainbow-mode
+    :config
+    (add-hook 'css-mode-hook 'rainbow-mode)
+    (add-hook 'web-mode-hook 'rainbow-mode))
   (use-package tern
     :config
     (add-hook 'web-mode-hook 'tern-mode)
