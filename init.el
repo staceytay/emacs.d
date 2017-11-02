@@ -131,13 +131,26 @@
 (use-package undo-tree
   :diminish undo-tree-mode)
 
+;; Whitespace stuff
 (use-package whitespace-cleanup-mode
+  :diminish whitespace-mode
   :init (add-hook 'prog-mode-hook 'whitespace-cleanup-mode)
   :config
   (add-hook 'prog-mode-hook 'whitespace-mode)
   (setq whitespace-line-column 80)
   (setq whitespace-style '(face lines-tail))
   (setq-default show-trailing-whitespace t))
+(defun s/no-trailing-whitespace ()
+  "Turn off display of trailing whitespace in this buffer."
+  (setq show-trailing-whitespace nil))
+(dolist (hook '(special-mode-hook
+                Info-mode-hook
+                eww-mode-hook
+                term-mode-hook
+                compilation-mode-hook
+                minibuffer-setup-hook))
+  (add-hook hook #'s/no-trailing-whitespace))
+
 
 ;;----------------------------------------------------------------------------
 ;; Programming Languages
