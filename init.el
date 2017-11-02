@@ -67,6 +67,8 @@
   :config
   (exec-path-from-shell-initialize))
 
+(use-package scratch)
+
 (use-package rg
   :bind ("M-s" . rg))
 
