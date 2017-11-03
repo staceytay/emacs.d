@@ -258,6 +258,18 @@
   (set-face-attribute 'web-mode-html-tag-bracket-face nil :foreground (face-attribute 'default :foreground))
   (set-face-attribute 'web-mode-html-tag-face nil :foreground (face-attribute 'default :foreground)))
 
+;; Python
+
+(use-package anaconda-mode
+  :init
+  (add-hook 'python-mode-hook 'anaconda-mode)
+  (add-hook 'python-mode-hook 'anaconda-eldoc-mode)
+  :config
+  (use-package company-anaconda
+    :config
+    (eval-after-load "company"
+      '(add-to-list 'company-backends '(company-anaconda)))))
+
 ;;----------------------------------------------------------------------------
 ;; Writing
 ;;----------------------------------------------------------------------------
