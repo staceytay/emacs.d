@@ -158,6 +158,9 @@
   (add-hook 'after-init-hook 'projectile-global-mode)
   :config
   (use-package counsel-projectile
+    :bind
+    (:map projectile-command-map
+	  ("s" . counsel-projectile-rg))
     :config (counsel-projectile-on))
   (setq projectile-completion-system 'ivy))
 
