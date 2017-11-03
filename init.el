@@ -57,6 +57,14 @@
  column-number-mode t)
 (show-paren-mode 1)
 
+(use-package anzu
+  :diminish anzu-mode
+  :init
+  (add-hook 'after-init-hook 'global-anzu-mode)
+  :config
+  (global-set-key [remap query-replace] 'anzu-query-replace)
+  (global-set-key [remap query-replace-regexp] 'anzu-query-replace-regexp))
+
 (use-package counsel
   :demand t
   :diminish ivy-mode
