@@ -189,12 +189,13 @@
 (defun s/no-trailing-whitespace ()
   "Turn off display of trailing whitespace in this buffer."
   (setq show-trailing-whitespace nil))
-(dolist (hook '(special-mode-hook
+(dolist (hook '(magit-popup-mode-hook
+		special-mode-hook
                 Info-mode-hook
-                eww-mode-hook
-                term-mode-hook
                 compilation-mode-hook
-                minibuffer-setup-hook))
+                eww-mode-hook
+                minibuffer-setup-hook
+                term-mode-hook))
   (add-hook hook #'s/no-trailing-whitespace))
 
 
