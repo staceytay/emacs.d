@@ -42,6 +42,7 @@
 (tooltip-mode -1)
 
 ;; Basic Preferences
+(add-hook 'after-init-hook 'winner-mode)
 (defalias 'yes-or-no-p 'y-or-n-p)
 (diminish 'abbrev-mode)
 (global-hl-line-mode)
