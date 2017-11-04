@@ -129,6 +129,18 @@
 	:map ivy-occur-mode-map
 	("<return>" . ivy-occur-press-and-switch))
   :config
+  (use-package evil-mc
+    :init
+    (setq evil-mc-mode-line-text-cursor-color nil)
+    (setq evil-mc-mode-line-text-inverse-colors nil)
+    (setq evil-mc-one-cursor-show-mode-line-text nil)
+    (global-evil-mc-mode 1)
+    :bind
+    (:map evil-normal-state-map
+	  ("g m m" . evil-mc-make-all-cursors)
+	  ("g m p" . evil-mc-pause-cursors)
+	  ("g m r" . evil-mc-resume-cursors)
+	  ("g m q" . evil-mc-undo-all-cursors)))
   (add-hook 'git-commit-mode-hook 'evil-insert-state))
 
 (use-package expand-region
