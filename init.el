@@ -43,6 +43,7 @@
 
 ;; Basic Preferences
 (defalias 'yes-or-no-p 'y-or-n-p)
+(diminish 'abbrev-mode)
 (global-hl-line-mode)
 (setq
  inhibit-splash-screen t
