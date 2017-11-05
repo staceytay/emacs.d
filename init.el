@@ -244,6 +244,8 @@
 (use-package web-mode
   :mode ("\\.js[x]?\\'" . web-mode)
   :config
+  (use-package json-mode
+    :mode "\\.json\\'")
   (use-package prettier-js
     :diminish prettier-js-mode
     :config
