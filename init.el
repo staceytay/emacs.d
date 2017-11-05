@@ -164,8 +164,8 @@
   (use-package fullframe
     :config (fullframe magit-status magit-mode-quit-window))
   (setq-default magit-diff-refine-hunk t))
-(diminish 'auto-revert-mode)
 (global-auto-revert-mode)
+(diminish 'auto-revert-mode)
 (setq auto-revert-verbose nil
       global-auto-revert-non-file-buffers t)
 
