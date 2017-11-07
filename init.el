@@ -148,9 +148,15 @@
   :bind
   (:map evil-insert-state-map
 	([tab] . company-complete)
+	:map evil-normal-state-map
+	([tab] . indent-for-tab-command)
 	:map ivy-occur-mode-map
 	("<return>" . ivy-occur-press-and-switch))
   :config
+  (use-package evil-goggles
+    :config
+    (evil-goggles-mode)
+    (evil-goggles-use-diff-faces))
   (use-package evil-mc
     :init
     (setq evil-mc-mode-line-text-cursor-color nil)
