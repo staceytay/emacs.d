@@ -135,6 +135,14 @@
   :config
   (add-hook 'prog-mode-hook 'turn-on-diff-hl-mode))
 
+(use-package dumb-jump
+  :bind
+  (("M-g o" . dumb-jump-go-other-window)
+   ("M-g j" . dumb-jump-go)
+   ("M-g i" . dumb-jump-go-prompt))
+  :config
+  (setq dumb-jump-selector 'ivy))
+
 (use-package evil
   :init (evil-mode t)
   :bind
