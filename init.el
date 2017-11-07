@@ -261,6 +261,8 @@
     (when (and eslint (file-executable-p eslint))
       (setq-local flycheck-javascript-eslint-executable eslint))))
 
+(setq css-indent-offset 2)
+
 (use-package web-mode
   :mode ("\\.js[x]?\\'" . web-mode)
   :config
