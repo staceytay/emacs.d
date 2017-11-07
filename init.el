@@ -103,6 +103,10 @@
   (setq-default switch-window-shortcut-style 'alphabet)
   (setq-default switch-window-timeout nil))
 
+
+(use-package wgrep
+  :config (setq wgrep-enable-key "w"))
+
 (use-package which-key
   :diminish which-key-mode
   :init (which-key-mode))
