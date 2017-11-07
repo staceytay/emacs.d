@@ -178,6 +178,7 @@
 	("<return>" . ivy-occur-press-and-switch))
   :config
   (use-package evil-goggles
+    :diminish evil-goggles-mode
     :config
     (evil-goggles-mode)
     (evil-goggles-use-diff-faces))
@@ -309,6 +310,7 @@
     (add-hook 'css-mode-hook 'rainbow-mode)
     (add-hook 'web-mode-hook 'rainbow-mode))
   (use-package tern
+    :diminish tern-mode
     :config
     (add-hook 'web-mode-hook 'tern-mode)
     (use-package company-tern
@@ -329,6 +331,7 @@
 ;; Python
 
 (use-package anaconda-mode
+  :diminish anaconda-mode
   :init
   (add-hook 'python-mode-hook 'anaconda-mode)
   (add-hook 'python-mode-hook 'anaconda-eldoc-mode)
