@@ -269,6 +269,16 @@
                 term-mode-hook))
   (add-hook hook #'s/no-trailing-whitespace))
 
+;;----------------------------------------------------------------------------
+;; Programming Utils
+;;----------------------------------------------------------------------------
+
+(use-package restclient
+  :mode ("\\.rest\\'" . restclient-mode)
+  :config
+  (use-package company-restclient
+    :config (add-to-list 'company-backends 'company-restclient)))
+
 
 ;;----------------------------------------------------------------------------
 ;; Programming Languages
