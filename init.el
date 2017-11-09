@@ -297,8 +297,7 @@
 (use-package web-mode
   :mode ("\\.js[x]?\\'" . web-mode)
   :config
-  (use-package json-mode
-    :mode "\\.json\\'")
+  (use-package json-mode)
   (use-package prettier-js
     :diminish prettier-js-mode
     :config
@@ -337,9 +336,7 @@
   (add-hook 'python-mode-hook 'anaconda-eldoc-mode)
   :config
   (use-package company-anaconda
-    :config
-    (eval-after-load "company"
-      '(add-to-list 'company-backends '(company-anaconda)))))
+    :config (add-to-list 'company-backends '(company-anaconda))))
 
 ;;----------------------------------------------------------------------------
 ;; Writing
