@@ -273,6 +273,8 @@
 ;; Programming Utils
 ;;----------------------------------------------------------------------------
 
+(add-hook 'prog-mode-hook 'goto-address-prog-mode)
+
 (use-package restclient
   :mode ("\\.rest\\'" . restclient-mode)
   :config
