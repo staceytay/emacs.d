@@ -298,6 +298,31 @@
   :config
   (add-hook 'emacs-lisp-mode-hook 'aggressive-indent-mode))
 
+;; Golang
+(use-package go-mode
+  :mode ("\\.go\\'" . go-mode)
+  :config
+  (use-package company-go
+    :config
+    (add-hook 'go-mode-hook (lambda () (s/local-push-company-backend 'company-go)))
+    (custom-set-faces `(company-template-field
+			((t (:background ,(face-attribute 'default :foreground)
+					 :foreground ,(face-attribute 'default :background))))))
+    (setq company-go-show-annotation t))
+  (use-package go-add-tags
+    :bind (:map go-mode-map ("C-c t" . go-add-tags)))
+  (use-package go-eldoc
+    :config (add-hook 'go-mode-hook 'go-eldoc-setup))
+  (use-package go-guru)
+  (use-package golint)
+  (use-package gorepl-mode
+    :init (add-hook 'go-mode-hook #'gorepl-mode)
+    :bind (:map gorepl-mode-map
+		("C-c C-e" . gorepl-eval-line)
+		("C-c C-r" . gorepl-eval-region)))
+  (add-hook 'before-save-hook 'gofmt-before-save)
+  (setq gofmt-command "goimports"))
+
 ;; JS
 (defun s/use-eslint-from-node-modules ()
   "Use local eslint from node_modules."
