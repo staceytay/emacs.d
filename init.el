@@ -154,7 +154,8 @@
   (add-hook 'after-init-hook 'global-company-mode)
   :config
   (setq company-dabbrev-downcase nil
-	company-idle-delay 0))
+	company-idle-delay 0
+	company-tooltip-align-annotations t))
 (defun s/local-push-company-backend (backend)
   "Add BACKEND to a buffer-local version of `company-backends'."
   (set (make-local-variable 'company-backends)
