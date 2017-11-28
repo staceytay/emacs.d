@@ -155,6 +155,10 @@
   :config
   (setq company-dabbrev-downcase nil
 	company-idle-delay 0))
+(defun s/local-push-company-backend (backend)
+  "Add BACKEND to a buffer-local version of `company-backends'."
+  (set (make-local-variable 'company-backends)
+       (append (list backend) company-backends)))
 
 (use-package diff-hl
   :config
@@ -280,7 +284,7 @@
   :mode ("\\.rest\\'" . restclient-mode)
   :config
   (use-package company-restclient
-    :config (add-to-list 'company-backends 'company-restclient)))
+    :config (add-hook 'restclient-mode-hook (lambda () (s/local-push-company-backend 'company-restclient)))))
 
 
 ;;----------------------------------------------------------------------------
@@ -327,7 +331,7 @@
     (add-hook 'web-mode-hook 'tern-mode)
     (use-package company-tern
       :config
-      (add-to-list 'company-backends 'company-tern)
+      (add-hook 'web-mode-hook (lambda () (s/local-push-company-backend 'company-tern)))
       (setq company-tern-property-marker " <p>")))
   (add-hook 'flycheck-mode-hook #'s/use-eslint-from-node-modules)
   (add-to-list 'web-mode-comment-formats '("jsx" . "//" ))
@@ -349,7 +353,7 @@
   (add-hook 'python-mode-hook 'anaconda-eldoc-mode)
   :config
   (use-package company-anaconda
-    :config (add-to-list 'company-backends '(company-anaconda))))
+    :config (add-hook 'python-mode-hook (lambda () (s/local-push-company-backend 'company-anaconda)))))
 
 ;;----------------------------------------------------------------------------
 ;; Writing
