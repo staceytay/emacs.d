@@ -54,7 +54,8 @@
  uniquify-ignore-buffers-re "^\\*"
  uniquify-separator " • ")
 (setq-default
- column-number-mode t)
+ column-number-mode t
+ indent-tabs-mode nil)
 (show-paren-mode 1)
 
 (use-package anzu
@@ -83,7 +84,7 @@
   (global-set-key (kbd "C-c C-m") 'execute-extended-command)
   (global-set-key [remap execute-extended-command] 'counsel-M-x)
   (setq ivy-height 20
-	ivy-use-virtual-buffers t)
+        ivy-use-virtual-buffers t)
   (use-package flx)
   (use-package smex))
 
@@ -106,14 +107,14 @@
      ((> (buffer-size) 1000) (format "%7.1fk" (/ (buffer-size) 1000.0)))
      (t (format "%8d" (buffer-size)))))
   (setq ibuffer-formats
-  	'((mark modified read-only vc-status-mini " "
-  		(name 18 18 :left :elide)
-  		" "
-  		(size-h 9 -1 :right)
-  		" "
-  		(mode 16 16 :left :elide)
-  		" "
-  		filename-and-process)))
+        '((mark modified read-only vc-status-mini " "
+                (name 18 18 :left :elide)
+                " "
+                (size-h 9 -1 :right)
+                " "
+                (mode 16 16 :left :elide)
+                " "
+                filename-and-process)))
   (setq ibuffer-filter-group-name-face 'font-lock-doc-face))
 
 (use-package rg
@@ -146,16 +147,16 @@
   :diminish company-mode
   :bind
   (:map company-active-map
-	("M-n" . nil)
-	("M-p" . nil)
-	("C-n" . company-select-next)
-	("C-p" . company-select-previous))
+        ("M-n" . nil)
+        ("M-p" . nil)
+        ("C-n" . company-select-next)
+        ("C-p" . company-select-previous))
   :init
   (add-hook 'after-init-hook 'global-company-mode)
   :config
   (setq company-dabbrev-downcase nil
-	company-idle-delay 0
-	company-tooltip-align-annotations t))
+        company-idle-delay 0
+        company-tooltip-align-annotations t))
 (defun s/local-push-company-backend (backend)
   "Add BACKEND to a buffer-local version of `company-backends'."
   (set (make-local-variable 'company-backends)
@@ -177,11 +178,11 @@
   :init (evil-mode t)
   :bind
   (:map evil-insert-state-map
-	([tab] . company-complete)
-	:map evil-normal-state-map
-	([tab] . indent-for-tab-command)
-	:map ivy-occur-mode-map
-	("<return>" . ivy-occur-press-and-switch))
+        ([tab] . company-complete)
+        :map evil-normal-state-map
+        ([tab] . indent-for-tab-command)
+        :map ivy-occur-mode-map
+        ("<return>" . ivy-occur-press-and-switch))
   :config
   (use-package evil-goggles
     :diminish evil-goggles-mode
@@ -196,10 +197,10 @@
     (global-evil-mc-mode 1)
     :bind
     (:map evil-normal-state-map
-	  ("g m m" . evil-mc-make-all-cursors)
-	  ("g m p" . evil-mc-pause-cursors)
-	  ("g m r" . evil-mc-resume-cursors)
-	  ("g m q" . evil-mc-undo-all-cursors)))
+          ("g m m" . evil-mc-make-all-cursors)
+          ("g m p" . evil-mc-pause-cursors)
+          ("g m r" . evil-mc-resume-cursors)
+          ("g m q" . evil-mc-undo-all-cursors)))
   (add-hook 'git-commit-mode-hook 'evil-insert-state))
 
 (use-package expand-region
@@ -234,7 +235,7 @@
   (use-package counsel-projectile
     :bind
     (:map projectile-command-map
-	  ("s" . counsel-projectile-rg))
+          ("s" . counsel-projectile-rg))
     :config (counsel-projectile-on))
   (setq projectile-completion-system 'ivy))
 
@@ -256,7 +257,7 @@
 ;; Whitespace stuff
 (use-package whitespace-cleanup-mode
   :diminish (whitespace-cleanup-mode
-	     whitespace-mode)
+             whitespace-mode)
   :init (add-hook 'prog-mode-hook 'whitespace-cleanup-mode)
   :config
   (add-hook 'prog-mode-hook 'whitespace-mode)
@@ -267,7 +268,7 @@
   "Turn off display of trailing whitespace in this buffer."
   (setq show-trailing-whitespace nil))
 (dolist (hook '(magit-popup-mode-hook
-		special-mode-hook
+                special-mode-hook
                 Info-mode-hook
                 compilation-mode-hook
                 eww-mode-hook
@@ -306,8 +307,8 @@
     :config
     (add-hook 'go-mode-hook (lambda () (s/local-push-company-backend 'company-go)))
     (custom-set-faces `(company-template-field
-			((t (:background ,(face-attribute 'default :foreground)
-					 :foreground ,(face-attribute 'default :background))))))
+                        ((t (:background ,(face-attribute 'default :foreground)
+                                         :foreground ,(face-attribute 'default :background))))))
     (setq company-go-show-annotation t))
   (use-package go-add-tags
     :bind (:map go-mode-map ("C-c t" . go-add-tags)))
@@ -318,8 +319,8 @@
   (use-package gorepl-mode
     :init (add-hook 'go-mode-hook #'gorepl-mode)
     :bind (:map gorepl-mode-map
-		("C-c C-e" . gorepl-eval-line)
-		("C-c C-r" . gorepl-eval-region)))
+                ("C-c C-e" . gorepl-eval-line)
+                ("C-c C-r" . gorepl-eval-region)))
   (add-hook 'before-save-hook 'gofmt-before-save)
   (setq gofmt-command "goimports"))
 
@@ -327,11 +328,11 @@
 (defun s/use-eslint-from-node-modules ()
   "Use local eslint from node_modules."
   (let* ((root (locate-dominating-file
-		(or (buffer-file-name) default-directory)
-		"node_modules"))
-	 (eslint (and root
-		      (expand-file-name "node_modules/eslint/bin/eslint.js"
-					root))))
+                (or (buffer-file-name) default-directory)
+                "node_modules"))
+         (eslint (and root
+                      (expand-file-name "node_modules/eslint/bin/eslint.js"
+                                        root))))
     (when (and eslint (file-executable-p eslint))
       (setq-local flycheck-javascript-eslint-executable eslint))))
 
