@@ -302,6 +302,7 @@
 ;; Golang
 (use-package go-mode
   :mode ("\\.go\\'" . go-mode)
+  :bind (:map go-mode-map ("C-c C-t" . godef-describe))
   :config
   (use-package company-go
     :config
@@ -313,15 +314,19 @@
   (use-package go-add-tags
     :bind (:map go-mode-map ("C-c t" . go-add-tags)))
   (use-package go-eldoc
+    :diminish eldoc-mode
     :config (add-hook 'go-mode-hook 'go-eldoc-setup))
   (use-package go-guru)
   (use-package golint)
   (use-package gorepl-mode
+    :diminish gorepl-mode
     :init (add-hook 'go-mode-hook #'gorepl-mode)
     :bind (:map gorepl-mode-map
                 ("C-c C-e" . gorepl-eval-line)
                 ("C-c C-r" . gorepl-eval-region)))
   (add-hook 'before-save-hook 'gofmt-before-save)
+  (dolist (var '("GOBIN" "GOPATH"))
+    (exec-path-from-shell-copy-env var))
   (setq gofmt-command "goimports"))
 
 ;; JS
