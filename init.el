@@ -55,7 +55,8 @@
  uniquify-separator " • ")
 (setq-default
  column-number-mode t
- indent-tabs-mode nil)
+ indent-tabs-mode nil
+ make-backup-files nil)
 (show-paren-mode 1)
 
 (use-package anzu
