@@ -49,6 +49,7 @@
 (setq
  inhibit-splash-screen t
  inhibit-startup-message t
+ mouse-wheel-scroll-amount '(1 ((shift) . 5) ((control)))
  uniquify-after-kill-buffer-p t
  uniquify-buffer-name-style 'reverse
  uniquify-ignore-buffers-re "^\\*"
