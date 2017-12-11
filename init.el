@@ -304,7 +304,9 @@
 ;; Golang
 (use-package go-mode
   :mode ("\\.go\\'" . go-mode)
-  :bind (:map go-mode-map ("C-c C-t" . godef-describe))
+  :bind (:map go-mode-map
+              ("C-c C-t" . godef-describe)
+              ("C-c C-d" . godoc-at-point))
   :config
   (use-package company-go
     :config
