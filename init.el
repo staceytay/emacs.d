@@ -94,6 +94,12 @@
   :config
   (exec-path-from-shell-initialize))
 
+(use-package helpful
+  :bind
+  (("C-h f" . helpful-callable)
+   ("C-h k" . helpful-key)
+   ("C-h v" . helpful-variable)))
+
 (use-package ibuffer
   :bind ("C-x C-b" . ibuffer)
   :config
