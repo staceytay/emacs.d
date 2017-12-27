@@ -94,6 +94,17 @@
   :config
   (exec-path-from-shell-initialize))
 
+(use-package flyspell
+  :diminish flyspell-mode
+  :init
+  (setenv "DICTIONARY" "en_GB")
+  :bind (:map flyspell-mode-map ("C-;" . avy-goto-char))
+  :config
+  (use-package flyspell-correct-ivy
+    :bind (:map flyspell-mode-map ("C-'" . flyspell-correct-previous-word-generic)))
+  (add-hook 'prog-mode-hook 'flyspell-prog-mode)
+  (add-hook 'text-mode-hook 'flyspell-mode))
+
 (use-package helpful
   :bind
   (("C-h f" . helpful-callable)
@@ -400,6 +411,8 @@
 ;;----------------------------------------------------------------------------
 ;; Writing
 ;;----------------------------------------------------------------------------
+
+(use-package markdown-mode)
 
 (use-package olivetti
   :bind
