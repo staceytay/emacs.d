@@ -260,10 +260,9 @@
   (add-hook 'after-init-hook 'projectile-global-mode)
   :config
   (use-package counsel-projectile
-    :bind
-    (:map projectile-command-map
-          ("s" . counsel-projectile-rg))
-    :config (counsel-projectile-on))
+    :bind (:map counsel-projectile-command-map
+                ("s" . counsel-projectile-rg))
+    :init (counsel-projectile-mode))
   (setq projectile-completion-system 'ivy))
 
 (use-package rainbow-delimiters
