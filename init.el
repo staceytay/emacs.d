@@ -312,7 +312,8 @@
   :mode ("\\.rest\\'" . restclient-mode)
   :config
   (use-package company-restclient
-    :config (add-hook 'restclient-mode-hook (lambda () (s/local-push-company-backend 'company-restclient)))))
+    :config (add-hook 'restclient-mode-hook (lambda () (s/local-push-company-backend 'company-restclient))))
+  (setq-default url-max-redirections 0))
 
 
 ;;----------------------------------------------------------------------------
