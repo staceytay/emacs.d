@@ -102,7 +102,6 @@
   :config
   (use-package flyspell-correct-ivy
     :bind (:map flyspell-mode-map ("C-'" . flyspell-correct-previous-word-generic)))
-  (add-hook 'prog-mode-hook 'flyspell-prog-mode)
   (add-hook 'text-mode-hook 'flyspell-mode))
 
 (use-package helpful
