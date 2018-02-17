@@ -247,6 +247,13 @@
 (setq auto-revert-verbose nil
       global-auto-revert-non-file-buffers t)
 
+(use-package origami
+  :bind (:map origami-mode-map
+              ("C-c f" . origami-recursively-toggle-node)
+              ("C-c F" . origami-toggle-all-nodes))
+  :config
+  (add-hook 'prog-mode-hook 'origami-mode))
+
 (use-package projectile
   :delight '(:eval (format " P[%s]" (projectile-project-name)))
   :init
