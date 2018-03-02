@@ -398,19 +398,18 @@
   (set-face-attribute 'web-mode-html-attr-name-face nil :foreground (face-attribute 'font-lock-variable-name-face :foreground))
   (set-face-attribute 'web-mode-html-tag-bracket-face nil :foreground (face-attribute 'default :foreground))
   (set-face-attribute 'web-mode-html-tag-face nil :foreground (face-attribute 'default :foreground))
+  (use-package company-flow
+    :config (add-hook 'web-mode-hook (lambda () (s/local-push-company-backend 'company-flow))))
+  (use-package flycheck-flow
+    :config
+    (flycheck-add-mode 'javascript-flow 'web-mode)
+    (flycheck-add-next-checker 'javascript-flow 'javascript-eslint))
   (use-package prettier-js
     :diminish prettier-js-mode
     :config
     (add-hook 'web-mode-hook 'prettier-js-mode)
-    (setq prettier-js-args '("--trailing-comma" "all")))
-  (use-package tern
-    :diminish tern-mode
-    :config
-    (add-hook 'web-mode-hook 'tern-mode)
-    (use-package company-tern
-      :config
-      (add-hook 'web-mode-hook (lambda () (s/local-push-company-backend 'company-tern)))
-      (setq company-tern-property-marker " <p>"))))
+    (setq prettier-js-args '("--trailing-comma" "all"))))
+
 
 ;;----------------------------------------------------------------------------
 ;; Writing
