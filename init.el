@@ -374,21 +374,9 @@
   (add-hook 'css-mode-hook 'rainbow-mode)
   (add-hook 'web-mode-hook 'rainbow-mode))
 
-(defun s/use-eslint-from-node-modules ()
-  "Use local eslint from node_modules."
-  (let* ((root (locate-dominating-file
-                (or (buffer-file-name) default-directory)
-                "node_modules"))
-         (eslint (and root
-                      (expand-file-name "node_modules/eslint/bin/eslint.js"
-                                        root))))
-    (when (and eslint (file-executable-p eslint))
-      (setq-local flycheck-javascript-eslint-executable eslint))))
-
 (use-package web-mode
   :mode ("\\.js\\'" . web-mode)
   :config
-  (add-hook 'flycheck-mode-hook #'s/use-eslint-from-node-modules)
   (add-to-list 'web-mode-comment-formats '("jsx" . "//" ))
   (flycheck-add-mode 'javascript-eslint 'web-mode)
   (setq
@@ -399,6 +387,8 @@
   (set-face-attribute 'web-mode-html-attr-name-face nil :foreground (face-attribute 'font-lock-variable-name-face :foreground))
   (set-face-attribute 'web-mode-html-tag-bracket-face nil :foreground (face-attribute 'default :foreground))
   (set-face-attribute 'web-mode-html-tag-face nil :foreground (face-attribute 'default :foreground))
+  (use-package add-node-modules-path
+    :config (add-hook 'web-mode-hook #'add-node-modules-path))
   (use-package company-flow
     :config (add-hook 'web-mode-hook (lambda () (s/local-push-company-backend 'company-flow))))
   (use-package flycheck-flow
