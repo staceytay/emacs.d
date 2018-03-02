@@ -346,12 +346,6 @@
     :config (add-hook 'go-mode-hook 'go-eldoc-setup))
   (use-package go-guru)
   (use-package golint)
-  (use-package gorepl-mode
-    :diminish gorepl-mode
-    :init (add-hook 'go-mode-hook #'gorepl-mode)
-    :bind (:map gorepl-mode-map
-                ("C-c C-e" . gorepl-eval-line)
-                ("C-c C-r" . gorepl-eval-region)))
   (add-hook 'before-save-hook 'gofmt-before-save)
   (dolist (var '("GOBIN" "GOPATH"))
     (exec-path-from-shell-copy-env var))
