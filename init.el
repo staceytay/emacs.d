@@ -226,7 +226,8 @@
          ("C-=" . er/expand-region)))
 
 (use-package flycheck
-  :init (add-hook 'prog-mode-hook 'flycheck-mode)
+  :ensure t
+  :init (global-flycheck-mode)
   :config (setq flycheck-mode-line-prefix "F"))
 
 (use-package highlight-symbol
