@@ -351,7 +351,28 @@
     (exec-path-from-shell-copy-env var))
   (setq gofmt-command "goimports"))
 
-;; JS
+;; JSON
+(use-package json-mode
+  :config (setq js-indent-level 2))
+
+;; Python
+(use-package anaconda-mode
+  :diminish anaconda-mode
+  :init
+  (add-hook 'python-mode-hook 'anaconda-mode)
+  (add-hook 'python-mode-hook 'anaconda-eldoc-mode)
+  :config
+  (use-package company-anaconda
+    :config (add-hook 'python-mode-hook (lambda () (s/local-push-company-backend 'company-anaconda)))))
+
+;; Web
+(setq css-indent-offset 2)
+(use-package rainbow-mode
+  :diminish rainbow-mode
+  :config
+  (add-hook 'css-mode-hook 'rainbow-mode)
+  (add-hook 'web-mode-hook 'rainbow-mode))
+
 (defun s/use-eslint-from-node-modules ()
   "Use local eslint from node_modules."
   (let* ((root (locate-dominating-file
@@ -363,22 +384,25 @@
     (when (and eslint (file-executable-p eslint))
       (setq-local flycheck-javascript-eslint-executable eslint))))
 
-(setq css-indent-offset 2)
-
 (use-package web-mode
-  :mode ("\\.js[x]?\\'" . web-mode)
+  :mode ("\\.js\\'" . web-mode)
   :config
-  (use-package json-mode)
+  (add-hook 'flycheck-mode-hook #'s/use-eslint-from-node-modules)
+  (add-to-list 'web-mode-comment-formats '("jsx" . "//" ))
+  (flycheck-add-mode 'javascript-eslint 'web-mode)
+  (setq
+   web-mode-code-indent-offset 2
+   web-mode-content-types-alist '(("jsx"  . "components\\/.*\\.js\\'"))
+   web-mode-enable-auto-quoting nil
+   web-mode-markup-indent-offset 2)
+  (set-face-attribute 'web-mode-html-attr-name-face nil :foreground (face-attribute 'font-lock-variable-name-face :foreground))
+  (set-face-attribute 'web-mode-html-tag-bracket-face nil :foreground (face-attribute 'default :foreground))
+  (set-face-attribute 'web-mode-html-tag-face nil :foreground (face-attribute 'default :foreground))
   (use-package prettier-js
     :diminish prettier-js-mode
     :config
     (add-hook 'web-mode-hook 'prettier-js-mode)
-    (setq prettier-js-args '("--trailing-comma" "es5")))
-  (use-package rainbow-mode
-    :diminish rainbow-mode
-    :config
-    (add-hook 'css-mode-hook 'rainbow-mode)
-    (add-hook 'web-mode-hook 'rainbow-mode))
+    (setq prettier-js-args '("--trailing-comma" "all")))
   (use-package tern
     :diminish tern-mode
     :config
@@ -386,28 +410,7 @@
     (use-package company-tern
       :config
       (add-hook 'web-mode-hook (lambda () (s/local-push-company-backend 'company-tern)))
-      (setq company-tern-property-marker " <p>")))
-  (add-hook 'flycheck-mode-hook #'s/use-eslint-from-node-modules)
-  (add-to-list 'web-mode-comment-formats '("jsx" . "//" ))
-  (flycheck-add-mode 'javascript-eslint 'web-mode)
-  (setq web-mode-code-indent-offset 2)
-  (setq web-mode-content-types-alist '(("jsx"  . "\\.js[x]?\\'")))
-  (setq web-mode-enable-auto-quoting nil)
-  (setq web-mode-markup-indent-offset 2)
-  (set-face-attribute 'web-mode-html-attr-name-face nil :foreground (face-attribute 'font-lock-variable-name-face :foreground))
-  (set-face-attribute 'web-mode-html-tag-bracket-face nil :foreground (face-attribute 'default :foreground))
-  (set-face-attribute 'web-mode-html-tag-face nil :foreground (face-attribute 'default :foreground)))
-
-;; Python
-
-(use-package anaconda-mode
-  :diminish anaconda-mode
-  :init
-  (add-hook 'python-mode-hook 'anaconda-mode)
-  (add-hook 'python-mode-hook 'anaconda-eldoc-mode)
-  :config
-  (use-package company-anaconda
-    :config (add-hook 'python-mode-hook (lambda () (s/local-push-company-backend 'company-anaconda)))))
+      (setq company-tern-property-marker " <p>"))))
 
 ;;----------------------------------------------------------------------------
 ;; Writing
