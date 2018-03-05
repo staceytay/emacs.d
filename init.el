@@ -45,6 +45,7 @@
 (add-hook 'after-init-hook 'winner-mode)
 (defalias 'yes-or-no-p 'y-or-n-p)
 (diminish 'abbrev-mode)
+(diminish 'eldoc-mode)
 (global-hl-line-mode)
 (setq
  inhibit-splash-screen t
@@ -343,7 +344,6 @@
   (use-package go-add-tags
     :bind (:map go-mode-map ("C-c t" . go-add-tags)))
   (use-package go-eldoc
-    :diminish eldoc-mode
     :config (add-hook 'go-mode-hook 'go-eldoc-setup))
   (use-package go-guru)
   (use-package golint)
