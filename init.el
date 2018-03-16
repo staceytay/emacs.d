@@ -38,11 +38,9 @@
 (add-hook 'after-init-hook 'winner-mode)
 (add-hook 'prog-mode-hook 'goto-address-prog-mode)
 (defalias 'yes-or-no-p 'y-or-n-p)
-(diminish 'auto-revert-mode)
 (diminish 'abbrev-mode)
 (diminish 'eldoc-mode)
 (global-hl-line-mode)
-(global-auto-revert-mode)
 (setq
  auto-revert-verbose nil
  global-auto-revert-non-file-buffers t
@@ -234,7 +232,10 @@
 
 (use-package magit
   :bind ("C-c g" . magit-status)
-  :config (setq-default magit-diff-refine-hunk t)
+  :config
+  (global-auto-revert-mode)
+  (diminish 'auto-revert-mode)
+  (setq-default magit-diff-refine-hunk t)
   (use-package fullframe
     :config (fullframe magit-status magit-mode-quit-window)))
 
