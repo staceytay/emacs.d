@@ -13,9 +13,9 @@
 
 (eval-and-compile
   (defvar use-package-verbose t)
-  (require 'use-package)
   (require 'delight)
   (require 'diminish)
+  (require 'use-package)
   (setq use-package-always-ensure t))
 
 (setq custom-file "~/.emacs.d/custom.el")
@@ -26,8 +26,7 @@
 ;;----------------------------------------------------------------------------
 
 (use-package color-theme-sanityinc-solarized
-  :init
-  (load-theme 'sanityinc-solarized-dark t))
+  :init (load-theme 'sanityinc-solarized-dark t))
 
 (use-package color-theme-sanityinc-tomorrow)
 
@@ -35,19 +34,18 @@
 ;; Emacs Stuff
 ;;----------------------------------------------------------------------------
 
-;; Clear GUI
-(menu-bar-mode -1)
-(scroll-bar-mode -1)
-(tool-bar-mode -1)
-(tooltip-mode -1)
-
 ;; Basic Preferences
 (add-hook 'after-init-hook 'winner-mode)
+(add-hook 'prog-mode-hook 'goto-address-prog-mode)
 (defalias 'yes-or-no-p 'y-or-n-p)
+(diminish 'auto-revert-mode)
 (diminish 'abbrev-mode)
 (diminish 'eldoc-mode)
 (global-hl-line-mode)
+(global-auto-revert-mode)
 (setq
+ auto-revert-verbose nil
+ global-auto-revert-non-file-buffers t
  inhibit-splash-screen t
  inhibit-startup-message t
  mouse-wheel-scroll-amount '(1 ((shift) . 5) ((control)))
@@ -61,16 +59,22 @@
  make-backup-files nil)
 (show-paren-mode 1)
 
+;; Clear GUI
+(menu-bar-mode -1)
+(scroll-bar-mode -1)
+(tool-bar-mode -1)
+(tooltip-mode -1)
+
 (use-package anzu
+  :init (add-hook 'after-init-hook 'global-anzu-mode)
   :diminish anzu-mode
-  :init
-  (add-hook 'after-init-hook 'global-anzu-mode)
   :config
   (global-set-key [remap query-replace] 'anzu-query-replace)
   (global-set-key [remap query-replace-regexp] 'anzu-query-replace-regexp))
 
 (use-package counsel
   :demand t
+  :init (add-hook 'after-init-hook 'ivy-mode)
   :diminish ivy-mode
   :bind
   (("C-s" . counsel-grep-or-swiper)
@@ -81,29 +85,25 @@
    ("C-j" . ivy-immediate-done)
    :map swiper-map
    ("C-r" . ivy-previous-line))
-  :init
-  (add-hook 'after-init-hook 'ivy-mode)
   :config
   (global-set-key (kbd "C-c C-m") 'execute-extended-command)
   (global-set-key [remap execute-extended-command] 'counsel-M-x)
-  (setq ivy-height 20
-        ivy-use-virtual-buffers t)
+  (setq
+   ivy-height 20
+   ivy-use-virtual-buffers t)
   (use-package flx)
   (use-package smex))
 
 (use-package exec-path-from-shell
-  :config
-  (exec-path-from-shell-initialize))
+  :config (exec-path-from-shell-initialize))
 
 (use-package flyspell
+  :init (setenv "DICTIONARY" "en_GB")
   :diminish flyspell-mode
-  :init
-  (setenv "DICTIONARY" "en_GB")
   :bind (:map flyspell-mode-map ("C-;" . avy-goto-char))
-  :config
+  :config (add-hook 'text-mode-hook 'flyspell-mode)
   (use-package flyspell-correct-ivy
-    :bind (:map flyspell-mode-map ("C-'" . flyspell-correct-previous-word-generic)))
-  (add-hook 'text-mode-hook 'flyspell-mode))
+    :bind (:map flyspell-mode-map ("C-'" . flyspell-correct-previous-word-generic))))
 
 (use-package helpful
   :bind
@@ -114,10 +114,6 @@
 (use-package ibuffer
   :bind ("C-x C-b" . ibuffer)
   :config
-  (use-package ibuffer-vc
-    :config (add-hook 'ibuffer-hook 'ibuffer-vc-set-filter-groups-by-vc-root))
-  (require 'ibuffer)
-  (require 'ibuffer-vc)
   (define-ibuffer-column size-h
     ;; Use human readable Size column instead of original one
     (:name "Size" :inline t)
@@ -125,16 +121,19 @@
      ((> (buffer-size) 1000000) (format "%7.1fM" (/ (buffer-size) 1000000.0)))
      ((> (buffer-size) 1000) (format "%7.1fk" (/ (buffer-size) 1000.0)))
      (t (format "%8d" (buffer-size)))))
-  (setq ibuffer-formats
-        '((mark modified read-only vc-status-mini " "
-                (name 18 18 :left :elide)
-                " "
-                (size-h 9 -1 :right)
-                " "
-                (mode 16 16 :left :elide)
-                " "
-                filename-and-process)))
-  (setq ibuffer-filter-group-name-face 'font-lock-doc-face))
+  (setq
+   ibuffer-formats
+   '((mark modified read-only vc-status-mini " "
+           (name 18 18 :left :elide)
+           " "
+           (size-h 9 -1 :right)
+           " "
+           (mode 16 16 :left :elide)
+           " "
+           filename-and-process))
+   ibuffer-filter-group-name-face 'font-lock-doc-face)
+  (use-package ibuffer-vc
+    :config (add-hook 'ibuffer-hook 'ibuffer-vc-set-filter-groups-by-vc-root)))
 
 (use-package rg
   :bind ("C-c s" . rg))
@@ -144,16 +143,16 @@
 (use-package switch-window
   :bind ("C-x o" . switch-window)
   :config
-  (setq-default switch-window-shortcut-style 'alphabet)
-  (setq-default switch-window-timeout nil))
-
+  (setq-default
+   switch-window-shortcut-style 'alphabet
+   switch-window-timeout nil))
 
 (use-package wgrep
   :config (setq wgrep-enable-key "w"))
 
 (use-package which-key
-  :diminish which-key-mode
-  :init (which-key-mode))
+  :init (which-key-mode)
+  :diminish which-key-mode)
 
 ;;----------------------------------------------------------------------------
 ;; Editing Utils
@@ -163,6 +162,7 @@
   :bind ("C-;" . avy-goto-char))
 
 (use-package company
+  :init (add-hook 'after-init-hook 'global-company-mode)
   :diminish company-mode
   :bind
   (:map company-active-map
@@ -170,28 +170,18 @@
         ("M-p" . nil)
         ("C-n" . company-select-next)
         ("C-p" . company-select-previous))
-  :init
-  (add-hook 'after-init-hook 'global-company-mode)
   :config
-  (setq company-dabbrev-downcase nil
-        company-idle-delay 0
-        company-tooltip-align-annotations t))
+  (setq
+   company-dabbrev-downcase nil
+   company-idle-delay 0
+   company-tooltip-align-annotations t))
 (defun s/local-push-company-backend (backend)
   "Add BACKEND to a buffer-local version of `company-backends'."
   (set (make-local-variable 'company-backends)
        (append (list backend) company-backends)))
 
 (use-package diff-hl
-  :config
-  (add-hook 'prog-mode-hook 'turn-on-diff-hl-mode))
-
-(use-package dumb-jump
-  :bind
-  (("M-g o" . dumb-jump-go-other-window)
-   ("M-g j" . dumb-jump-go)
-   ("M-g i" . dumb-jump-go-prompt))
-  :config
-  (setq dumb-jump-selector 'ivy))
+  :config (add-hook 'prog-mode-hook 'turn-on-diff-hl-mode))
 
 (use-package evil
   :init (evil-mode t)
@@ -202,7 +192,7 @@
         ([tab] . indent-for-tab-command)
         :map ivy-occur-mode-map
         ("<return>" . ivy-occur-press-and-switch))
-  :config
+  :config (add-hook 'git-commit-mode-hook 'evil-insert-state)
   (use-package evil-goggles
     :diminish evil-goggles-mode
     :config
@@ -210,21 +200,22 @@
     (evil-goggles-use-diff-faces))
   (use-package evil-mc
     :init
-    (setq evil-mc-mode-line-text-cursor-color nil)
-    (setq evil-mc-mode-line-text-inverse-colors nil)
-    (setq evil-mc-one-cursor-show-mode-line-text nil)
+    (setq
+     evil-mc-mode-line-text-cursor-color nil
+     evil-mc-mode-line-text-inverse-colors nil
+     evil-mc-one-cursor-show-mode-line-text nil)
     (global-evil-mc-mode 1)
     :bind
     (:map evil-normal-state-map
           ("g m m" . evil-mc-make-all-cursors)
           ("g m p" . evil-mc-pause-cursors)
           ("g m r" . evil-mc-resume-cursors)
-          ("g m q" . evil-mc-undo-all-cursors)))
-  (add-hook 'git-commit-mode-hook 'evil-insert-state))
+          ("g m q" . evil-mc-undo-all-cursors))))
 
 (use-package expand-region
-  :bind (("C--" . er/contract-region)
-         ("C-=" . er/expand-region)))
+  :bind
+  (("C--" . er/contract-region)
+   ("C-=" . er/expand-region)))
 
 (use-package flycheck
   :ensure t
@@ -232,48 +223,40 @@
   :config (setq flycheck-mode-line-prefix "F"))
 
 (use-package highlight-symbol
-  :diminish highlight-symbol-mode
   :init
   (add-hook 'prog-mode-hook 'highlight-symbol-mode)
-  (add-hook 'prog-mode-hook 'highlight-symbol-nav-mode))
+  (add-hook 'prog-mode-hook 'highlight-symbol-nav-mode)
+  :diminish highlight-symbol-mode)
 
 (use-package magit
   :bind ("C-c g" . magit-status)
-  :config
+  :config (setq-default magit-diff-refine-hunk t)
   (use-package fullframe
-    :config (fullframe magit-status magit-mode-quit-window))
-  (setq-default magit-diff-refine-hunk t))
-(global-auto-revert-mode)
-(diminish 'auto-revert-mode)
-(setq auto-revert-verbose nil
-      global-auto-revert-non-file-buffers t)
+    :config (fullframe magit-status magit-mode-quit-window)))
 
 (use-package origami
-  :bind (:map origami-mode-map
-              ("C-c f" . origami-recursively-toggle-node)
-              ("C-c F" . origami-toggle-all-nodes))
-  :config
-  (add-hook 'prog-mode-hook 'origami-mode))
+  :bind
+  (:map origami-mode-map
+        ("C-c f" . origami-recursively-toggle-node)
+        ("C-c F" . origami-toggle-all-nodes))
+  :config (add-hook 'prog-mode-hook 'origami-mode))
 
 (use-package projectile
+  :init (add-hook 'after-init-hook 'projectile-global-mode)
   :delight '(:eval (format " P[%s]" (projectile-project-name)))
-  :init
-  (add-hook 'after-init-hook 'projectile-global-mode)
-  :config
+  :config (setq projectile-completion-system 'ivy)
   (use-package counsel-projectile
-    :bind (:map counsel-projectile-command-map
-                ("s" . counsel-projectile-rg))
-    :init (counsel-projectile-mode))
-  (setq projectile-completion-system 'ivy))
+    :init (counsel-projectile-mode)
+    :bind
+    (:map counsel-projectile-command-map
+          ("s" . counsel-projectile-rg))))
 
 (use-package rainbow-delimiters
-  :init
-  (add-hook 'prog-mode-hook 'rainbow-delimiters-mode))
+  :init (add-hook 'prog-mode-hook 'rainbow-delimiters-mode))
 
 (use-package smartparens
-  :diminish smartparens-mode
-  :init
-  (add-hook 'after-init-hook 'smartparens-global-mode))
+  :init (add-hook 'after-init-hook 'smartparens-global-mode)
+  :diminish smartparens-mode)
 
 (use-package string-inflection
   :bind ("M-i". string-inflection-all-cycle))
@@ -283,13 +266,13 @@
 
 ;; Whitespace stuff
 (use-package whitespace-cleanup-mode
-  :diminish (whitespace-cleanup-mode
-             whitespace-mode)
   :init (add-hook 'prog-mode-hook 'whitespace-cleanup-mode)
+  :diminish (whitespace-cleanup-mode whitespace-mode)
   :config
   (add-hook 'prog-mode-hook 'whitespace-mode)
-  (setq whitespace-line-column 80)
-  (setq whitespace-style '(face lines-tail))
+  (setq
+   whitespace-line-column 80
+   whitespace-style '(face lines-tail))
   (setq-default show-trailing-whitespace t))
 (defun s/no-trailing-whitespace ()
   "Turn off display of trailing whitespace in this buffer."
@@ -307,14 +290,18 @@
 ;; Programming Utils
 ;;----------------------------------------------------------------------------
 
-(add-hook 'prog-mode-hook 'goto-address-prog-mode)
+(use-package dumb-jump
+  :bind
+  (("M-g o" . dumb-jump-go-other-window)
+   ("M-g j" . dumb-jump-go)
+   ("M-g i" . dumb-jump-go-prompt))
+  :config (setq dumb-jump-selector 'ivy))
 
 (use-package restclient
   :mode ("\\.rest\\'" . restclient-mode)
-  :config
+  :config (setq-default url-max-redirections 0)
   (use-package company-restclient
-    :config (add-hook 'restclient-mode-hook (lambda () (s/local-push-company-backend 'company-restclient))))
-  (setq-default url-max-redirections 0))
+    :config (add-hook 'restclient-mode-hook (lambda () (s/local-push-company-backend 'company-restclient)))))
 
 
 ;;----------------------------------------------------------------------------
@@ -324,16 +311,19 @@
 ;; ELisp
 (use-package aggressive-indent
   :diminish aggressive-indent-mode
-  :config
-  (add-hook 'emacs-lisp-mode-hook 'aggressive-indent-mode))
+  :config (add-hook 'emacs-lisp-mode-hook 'aggressive-indent-mode))
 
 ;; Golang
 (use-package go-mode
   :mode ("\\.go\\'" . go-mode)
-  :bind (:map go-mode-map
-              ("C-c C-t" . godef-describe)
-              ("C-c C-d" . godoc-at-point))
+  :bind
+  (:map go-mode-map
+        ("C-c C-t" . godef-describe)
+        ("C-c C-d" . godoc-at-point))
   :config
+  (add-hook 'before-save-hook 'gofmt-before-save)
+  (dolist (var '("GOBIN" "GOPATH")) (exec-path-from-shell-copy-env var))
+  (setq gofmt-command "goimports")
   (use-package company-go
     :config
     (add-hook 'go-mode-hook (lambda () (s/local-push-company-backend 'company-go)))
@@ -346,11 +336,7 @@
   (use-package go-eldoc
     :config (add-hook 'go-mode-hook 'go-eldoc-setup))
   (use-package go-guru)
-  (use-package golint)
-  (add-hook 'before-save-hook 'gofmt-before-save)
-  (dolist (var '("GOBIN" "GOPATH"))
-    (exec-path-from-shell-copy-env var))
-  (setq gofmt-command "goimports"))
+  (use-package golint))
 
 ;; JSON
 (use-package json-mode
@@ -358,10 +344,10 @@
 
 ;; Python
 (use-package anaconda-mode
-  :diminish anaconda-mode
   :init
   (add-hook 'python-mode-hook 'anaconda-mode)
   (add-hook 'python-mode-hook 'anaconda-eldoc-mode)
+  :diminish anaconda-mode
   :config
   (use-package company-anaconda
     :config (add-hook 'python-mode-hook (lambda () (s/local-push-company-backend 'company-anaconda)))))
@@ -377,6 +363,7 @@
 (use-package web-mode
   :mode ("\\.js\\'" . web-mode)
   :config
+  (add-to-list 'web-mode-comment-formats '("javascript" . "//" ))
   (add-to-list 'web-mode-comment-formats '("jsx" . "//" ))
   (flycheck-add-mode 'javascript-eslint 'web-mode)
   (setq
