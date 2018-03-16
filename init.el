@@ -346,6 +346,9 @@
 (use-package json-mode
   :config (setq js-indent-level 2))
 
+;; nginx
+(use-package nginx-mode)
+
 ;; Python
 (use-package anaconda-mode
   :init
