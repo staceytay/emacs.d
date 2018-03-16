@@ -210,7 +210,11 @@
           ("g m m" . evil-mc-make-all-cursors)
           ("g m p" . evil-mc-pause-cursors)
           ("g m r" . evil-mc-resume-cursors)
-          ("g m q" . evil-mc-undo-all-cursors))))
+          ("g m q" . evil-mc-undo-all-cursors)))
+  (use-package evil-surround
+    :ensure t
+    :config (global-evil-surround-mode 1)))
+
 
 (use-package expand-region
   :bind
