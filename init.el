@@ -396,6 +396,5 @@
 (use-package markdown-mode)
 
 (use-package olivetti
-  :bind
-  (("C-c o" . olivetti-mode)
-   ("C-c m" . olivetti-toggle-hide-mode-line)))
+  :bind (("C-c o" . olivetti-mode))
+  :config (setq olivetti-body-width 82))
