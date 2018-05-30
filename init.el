@@ -211,7 +211,11 @@
           ("g m q" . evil-mc-undo-all-cursors)))
   (use-package evil-surround
     :ensure t
-    :config (global-evil-surround-mode 1)))
+    :config (global-evil-surround-mode 1))
+  (use-package key-chord
+    :config
+    (key-chord-mode 1)
+    (key-chord-define evil-insert-state-map  "jk" 'evil-normal-state)))
 
 
 (use-package expand-region
