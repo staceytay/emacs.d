@@ -366,6 +366,9 @@
 
 ;; Web
 (setq css-indent-offset 2)
+(use-package css-eldoc
+  :init (add-hook 'css-mode-hook 'turn-on-css-eldoc))
+
 (use-package rainbow-mode
   :diminish rainbow-mode
   :config
