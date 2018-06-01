@@ -89,6 +89,7 @@
   (global-set-key (kbd "C-c C-m") 'execute-extended-command)
   (global-set-key [remap execute-extended-command] 'counsel-M-x)
   (setq
+   counsel-find-file-occur-cmd "ls -a | grep -i -E '%s' | tr '\\n' '\\0' | xargs -0 ls -d"
    ivy-height 20
    ivy-use-virtual-buffers t)
   (use-package flx)
