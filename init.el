@@ -37,9 +37,11 @@
 ;; Basic Preferences
 (add-hook 'after-init-hook 'winner-mode)
 (add-hook 'prog-mode-hook 'goto-address-prog-mode)
+(add-hook 'prog-mode-hook 'subword-mode)
 (defalias 'yes-or-no-p 'y-or-n-p)
 (diminish 'abbrev-mode)
 (diminish 'eldoc-mode)
+(diminish 'subword-mode)
 (global-hl-line-mode)
 (setq
  auto-revert-verbose nil
