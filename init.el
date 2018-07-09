@@ -9,17 +9,16 @@
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
   (package-install 'delight)
+  (package-install 'diminish)
   (package-install 'use-package))
 
 (eval-and-compile
   (defvar use-package-verbose t)
   (require 'delight)
-  (require 'diminish)
   (require 'use-package)
   (setq use-package-always-ensure t))
 
 (setq custom-file "~/.emacs.d/custom.el")
-
 
 ;;----------------------------------------------------------------------------
 ;; Color Themes
@@ -41,7 +40,7 @@
 (defalias 'yes-or-no-p 'y-or-n-p)
 (diminish 'abbrev-mode)
 (diminish 'eldoc-mode)
-(diminish 'subword-mode)
+(with-eval-after-load 'subword (diminish 'subword-mode))
 (global-hl-line-mode)
 (setq
  auto-revert-verbose nil
