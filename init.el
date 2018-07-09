@@ -68,6 +68,7 @@
   :init (add-hook 'after-init-hook 'global-anzu-mode)
   :diminish anzu-mode
   :config
+  (set-face-attribute 'anzu-replace-highlight nil :background (face-attribute 'font-lock-string-face :foreground) :foreground (face-attribute 'default :background))
   (global-set-key [remap query-replace] 'anzu-query-replace)
   (global-set-key [remap query-replace-regexp] 'anzu-query-replace-regexp))
 
