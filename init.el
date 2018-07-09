@@ -350,6 +350,11 @@
   (use-package go-guru)
   (use-package golint))
 
+(use-package protobuf-mode
+  :init
+  (add-hook 'protobuf-mode-hook 'highlight-symbol-mode)
+  (add-hook 'protobuf-mode-hook 'highlight-symbol-nav-mode))
+
 ;; JSON
 (use-package json-mode
   :config (setq js-indent-level 2))
