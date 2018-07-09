@@ -44,10 +44,13 @@
 (global-hl-line-mode)
 (setq
  auto-revert-verbose nil
+ frame-resize-pixelwise t
+ frame-title-format '("%b")
  global-auto-revert-non-file-buffers t
  inhibit-splash-screen t
  inhibit-startup-message t
  mouse-wheel-scroll-amount '(1 ((shift) . 5) ((control)))
+ ns-use-proxy-icon  nil
  uniquify-after-kill-buffer-p t
  uniquify-buffer-name-style 'reverse
  uniquify-ignore-buffers-re "^\\*"
