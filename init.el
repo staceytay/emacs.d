@@ -58,6 +58,7 @@
 (setq-default
  column-number-mode t
  indent-tabs-mode nil
+ indicate-empty-lines t
  make-backup-files nil)
 (show-paren-mode 1)
 
