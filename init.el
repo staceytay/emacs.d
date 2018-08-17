@@ -425,3 +425,5 @@
 (use-package olivetti
   :bind (("C-c o" . olivetti-mode))
   :config (setq olivetti-body-width 82))
+
+(put 'narrow-to-region 'disabled nil)
