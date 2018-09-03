@@ -225,7 +225,9 @@
   (use-package key-chord
     :config
     (key-chord-mode 1)
-    (key-chord-define evil-insert-state-map  "jk" 'evil-normal-state)))
+    (key-chord-define evil-insert-state-map  "jk" 'evil-normal-state)
+    (key-chord-define evil-normal-state-map  "jk" 'keyboard-quit)
+    (key-chord-define ivy-minibuffer-map  "jk" 'minibuffer-keyboard-quit)))
 
 
 (use-package expand-region
