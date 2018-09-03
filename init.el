@@ -240,6 +240,11 @@
   :init (global-flycheck-mode)
   :config (setq flycheck-mode-line-prefix "F"))
 
+(use-package highlight-indent-guides
+  :init (add-hook 'prog-mode-hook 'highlight-indent-guides-mode)
+  :config (setq highlight-indent-guides-method 'character
+                highlight-indent-guides-responsive 'top))
+
 (use-package highlight-symbol
   :init
   (add-hook 'prog-mode-hook 'highlight-symbol-mode)
