@@ -195,6 +195,7 @@
         :map evil-normal-state-map
         ([? ] . execute-extended-command)
         ([tab] . indent-for-tab-command)
+        (";" . recenter-top-bottom)
         :map evil-visual-state-map
         ([? ] . execute-extended-command)
         :map ivy-occur-mode-map
