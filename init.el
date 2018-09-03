@@ -172,13 +172,17 @@
   (:map company-active-map
         ("M-n" . nil)
         ("M-p" . nil)
+        ([tab] . company-select-next)
         ("C-n" . company-select-next)
         ("C-p" . company-select-previous))
   :config
   (setq
    company-dabbrev-downcase nil
+   company-dabbrev-ignore-case nil
    company-idle-delay 0
-   company-tooltip-align-annotations t))
+   company-minimum-prefix-length 2
+   company-tooltip-align-annotations t
+   company-transformers '(company-sort-by-backend-importance)))
 (defun s/local-push-company-backend (backend)
   "Add BACKEND to a buffer-local version of `company-backends'."
   (set (make-local-variable 'company-backends)
@@ -192,6 +196,7 @@
   :bind
   (:map evil-insert-state-map
         ([tab] . company-complete)
+        ("C-n" . company-select-next)
         :map evil-normal-state-map
         ([? ] . execute-extended-command)
         ([tab] . indent-for-tab-command)
