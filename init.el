@@ -90,7 +90,6 @@
    :map swiper-map
    ("C-r" . ivy-previous-line))
   :config
-  (global-set-key (kbd "C-c C-m") 'execute-extended-command)
   (global-set-key [remap execute-extended-command] 'counsel-M-x)
   (setq
    counsel-find-file-occur-cmd "ls -a | grep -i -E '%s' | tr '\\n' '\\0' | xargs -0 ls -d"
@@ -194,7 +193,10 @@
   (:map evil-insert-state-map
         ([tab] . company-complete)
         :map evil-normal-state-map
+        ([? ] . execute-extended-command)
         ([tab] . indent-for-tab-command)
+        :map evil-visual-state-map
+        ([? ] . execute-extended-command)
         :map ivy-occur-mode-map
         ("<return>" . ivy-occur-press-and-switch))
   :config (add-hook 'git-commit-mode-hook 'evil-insert-state)
