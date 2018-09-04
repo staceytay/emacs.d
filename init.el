@@ -212,19 +212,6 @@
     :config
     (evil-goggles-mode)
     (evil-goggles-use-diff-faces))
-  (use-package evil-mc
-    :init
-    (setq
-     evil-mc-mode-line-text-cursor-color nil
-     evil-mc-mode-line-text-inverse-colors nil
-     evil-mc-one-cursor-show-mode-line-text nil)
-    (global-evil-mc-mode 1)
-    :bind
-    (:map evil-normal-state-map
-          ("g m m" . evil-mc-make-all-cursors)
-          ("g m p" . evil-mc-pause-cursors)
-          ("g m r" . evil-mc-resume-cursors)
-          ("g m q" . evil-mc-undo-all-cursors)))
   (use-package evil-surround
     :ensure t
     :config (global-evil-surround-mode 1))
