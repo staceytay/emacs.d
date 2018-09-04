@@ -408,7 +408,11 @@
   (use-package add-node-modules-path
     :config (add-hook 'web-mode-hook #'add-node-modules-path))
   (use-package company-flow
-    :config (add-hook 'web-mode-hook (lambda () (s/local-push-company-backend 'company-flow))))
+    :config (add-hook 'web-mode-hook (lambda () (s/local-push-company-backend '(company-flow :with company-dabbrev-code)))))
+  (use-package flow-minor-mode
+    :init (add-hook 'web-mode-hook 'flow-minor-mode)
+    :diminish flow-minor-mode
+    :bind (:map flow-minor-mode-map ("C-c C-t" . flow-minor-type-at-pos)))
   (use-package flycheck-flow
     :config
     (flycheck-add-mode 'javascript-flow 'web-mode)
