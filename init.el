@@ -422,6 +422,7 @@
 (use-package markdown-mode)
 
 (use-package olivetti
+  :diminish olivetti-mode
   :bind (("C-c o" . olivetti-mode))
   :config (setq olivetti-body-width 82))
 
