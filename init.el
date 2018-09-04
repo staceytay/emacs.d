@@ -252,11 +252,10 @@
     :config (fullframe magit-status magit-mode-quit-window)))
 
 (use-package origami
-  :bind
-  (:map origami-mode-map
-        ("C-c f" . origami-recursively-toggle-node)
-        ("C-c F" . origami-toggle-all-nodes))
-  :config (add-hook 'prog-mode-hook 'origami-mode))
+  :init (global-origami-mode)
+  :bind (:map origami-mode-map
+              ("C-c f" . origami-recursively-toggle-node)
+              ("C-c F" . origami-toggle-all-nodes)))
 
 (use-package projectile
   :init (add-hook 'after-init-hook 'projectile-global-mode)
