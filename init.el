@@ -260,12 +260,12 @@
 (use-package projectile
   :init (add-hook 'after-init-hook 'projectile-global-mode)
   :delight '(:eval (format " P[%s]" (projectile-project-name)))
-  :config (setq projectile-completion-system 'ivy)
-  (use-package counsel-projectile
-    :init (counsel-projectile-mode)
-    :bind
-    (:map counsel-projectile-command-map
-          ("s" . counsel-projectile-rg))))
+  :bind (:map projectile-mode-map
+              ("C-c p" . projectile-command-map)
+              ("C-c p s" . projectile-ripgrep))
+  :config
+  (setq projectile-completion-system 'ivy)
+  (use-package counsel-projectile :init (counsel-projectile-mode)))
 
 (use-package rainbow-delimiters
   :init (add-hook 'prog-mode-hook 'rainbow-delimiters-mode))
