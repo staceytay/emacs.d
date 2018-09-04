@@ -97,8 +97,7 @@
    counsel-find-file-occur-cmd "ls -a | grep -i -E '%s' | tr '\\n' '\\0' | xargs -0 ls -d"
    ivy-height 20
    ivy-use-virtual-buffers t)
-  (use-package flx)
-  (use-package smex))
+  (use-package flx))
 
 (use-package exec-path-from-shell
   :config (exec-path-from-shell-initialize))
