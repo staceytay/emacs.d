@@ -3,8 +3,9 @@
 ;;----------------------------------------------------------------------------
 
 (require 'package)
+(add-to-list 'package-archives
+             '("melpa" . "https://melpa.org/packages/") t)
 (package-initialize)
-(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
@@ -12,13 +13,14 @@
   (package-install 'diminish)
   (package-install 'use-package))
 
-(eval-and-compile
+(eval-when-compile
   (defvar use-package-verbose t)
   (require 'delight)
-  (require 'use-package)
-  (setq use-package-always-ensure t))
+  (require 'diminish)
+  (require 'use-package))
 
 (setq custom-file "~/.emacs.d/custom.el")
+(setq use-package-always-ensure t)
 
 ;;----------------------------------------------------------------------------
 ;; Color Themes
