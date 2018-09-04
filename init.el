@@ -237,9 +237,7 @@
 
 
 (use-package expand-region
-  :bind
-  (("C--" . er/contract-region)
-   ("C-=" . er/expand-region)))
+  :bind ("C-=" . er/expand-region))
 
 (use-package flycheck
   :ensure t
