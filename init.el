@@ -287,7 +287,7 @@
   :config
   (add-hook 'prog-mode-hook 'whitespace-mode)
   (setq
-   whitespace-line-column 80
+   whitespace-line-column 92
    whitespace-style '(face lines-tail))
   (setq-default show-trailing-whitespace t))
 (defun s/no-trailing-whitespace ()
@@ -433,6 +433,6 @@
 (use-package olivetti
   :diminish olivetti-mode
   :bind (("C-c o" . olivetti-mode))
-  :config (setq olivetti-body-width 82))
+  :config (setq olivetti-body-width 92))
 
 (put 'narrow-to-region 'disabled nil)
