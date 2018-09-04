@@ -397,9 +397,14 @@
    web-mode-content-types-alist '(("jsx"  . "components\\/.*\\.js\\'"))
    web-mode-enable-auto-quoting nil
    web-mode-markup-indent-offset 2)
-  (set-face-attribute 'web-mode-html-attr-name-face nil :foreground (face-attribute 'font-lock-variable-name-face :foreground))
-  (set-face-attribute 'web-mode-html-tag-bracket-face nil :foreground (face-attribute 'default :foreground))
-  (set-face-attribute 'web-mode-html-tag-face nil :foreground (face-attribute 'default :foreground))
+  (set-face-attribute 'web-mode-html-attr-equal-face nil
+                      :foreground (face-attribute 'default :foreground))
+  (set-face-attribute 'web-mode-html-attr-name-face nil
+                      :foreground (face-attribute 'font-lock-variable-name-face :foreground))
+  (set-face-attribute 'web-mode-html-tag-bracket-face nil
+                      :foreground (face-attribute 'default :foreground))
+  (set-face-attribute 'web-mode-html-tag-face nil
+                      :foreground (face-attribute 'default :foreground))
   (use-package add-node-modules-path
     :config (add-hook 'web-mode-hook #'add-node-modules-path))
   (use-package company-flow
