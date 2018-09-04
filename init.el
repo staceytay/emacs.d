@@ -83,7 +83,7 @@
   :init (add-hook 'after-init-hook 'ivy-mode)
   :diminish ivy-mode
   :bind
-  (("C-s" . counsel-grep-or-swiper)
+  (("C-s" . swiper)
    ("C-x C-f" . counsel-find-file)
    ("C-x f" . counsel-recentf)
    :map ivy-minibuffer-map
