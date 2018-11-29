@@ -407,7 +407,9 @@
   (set-face-attribute 'web-mode-html-tag-face nil
                       :foreground (face-attribute 'default :foreground))
   (use-package add-node-modules-path
-    :config (add-hook 'web-mode-hook #'add-node-modules-path))
+    :config
+    (add-hook 'css-mode-hook #'add-node-modules-path)
+    (add-hook 'web-mode-hook #'add-node-modules-path))
   (use-package company-flow
     :config (add-hook 'web-mode-hook (lambda () (s/local-push-company-backend '(company-flow :with company-dabbrev-code)))))
   (use-package flow-minor-mode
