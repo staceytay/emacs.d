@@ -29,8 +29,6 @@
 (use-package color-theme-sanityinc-solarized
   :init (load-theme 'sanityinc-solarized-dark t))
 
-(use-package color-theme-sanityinc-tomorrow)
-
 ;;----------------------------------------------------------------------------
 ;; Emacs Stuff
 ;;----------------------------------------------------------------------------
