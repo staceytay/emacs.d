@@ -23,9 +23,21 @@
 (setq use-package-always-ensure t)
 
 ;;----------------------------------------------------------------------------
-;; Color Themes
+;; Appearances
 ;;----------------------------------------------------------------------------
 
+;; GUI and related behaviour
+(menu-bar-mode -1)
+(scroll-bar-mode -1)
+(tool-bar-mode -1)
+(tooltip-mode -1)
+(setq frame-resize-pixelwise t
+      frame-title-format '("%b")
+      inhibit-splash-screen t
+      inhibit-startup-message t
+      mouse-wheel-scroll-amount '(1 ((shift) . 5) ((control))))
+
+;; Color themes
 (use-package color-theme-sanityinc-solarized
   :init (load-theme 'sanityinc-solarized-dark t))
 
@@ -43,14 +55,6 @@
 (with-eval-after-load 'subword (diminish 'subword-mode))
 (global-hl-line-mode)
 (setq
- auto-revert-verbose nil
- frame-resize-pixelwise t
- frame-title-format '("%b")
- global-auto-revert-non-file-buffers t
- inhibit-splash-screen t
- inhibit-startup-message t
- mouse-wheel-scroll-amount '(1 ((shift) . 5) ((control)))
- ns-use-proxy-icon nil
  uniquify-after-kill-buffer-p t
  uniquify-buffer-name-style 'reverse
  uniquify-ignore-buffers-re "^\\*"
@@ -61,12 +65,6 @@
  indicate-empty-lines t
  make-backup-files nil)
 (show-paren-mode 1)
-
-;; Clear GUI
-(menu-bar-mode -1)
-(scroll-bar-mode -1)
-(tool-bar-mode -1)
-(tooltip-mode -1)
 
 (use-package anzu
   :init (add-hook 'after-init-hook 'global-anzu-mode)
@@ -245,6 +243,8 @@
   :config
   (global-auto-revert-mode)
   (diminish 'auto-revert-mode)
+  (setq auto-revert-verbose nil
+        global-auto-revert-non-file-buffers t)
   (setq-default magit-diff-refine-hunk t)
   (use-package fullframe
     :config (fullframe magit-status magit-mode-quit-window))
