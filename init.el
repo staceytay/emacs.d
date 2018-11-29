@@ -249,7 +249,8 @@
   (diminish 'auto-revert-mode)
   (setq-default magit-diff-refine-hunk t)
   (use-package fullframe
-    :config (fullframe magit-status magit-mode-quit-window)))
+    :config (fullframe magit-status magit-mode-quit-window))
+  (use-package git-link))
 
 (use-package origami
   :init (global-origami-mode)
