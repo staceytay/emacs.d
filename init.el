@@ -333,7 +333,8 @@
   :bind
   (:map go-mode-map
         ("C-c C-t" . godef-describe)
-        ("C-c C-d" . godoc-at-point))
+        ("C-c C-d" . godoc-at-point)
+        ("M-." . godef-jump))
   :config
   (add-hook 'before-save-hook 'gofmt-before-save)
   (dolist (var '("GOBIN" "GOPATH")) (exec-path-from-shell-copy-env var))
