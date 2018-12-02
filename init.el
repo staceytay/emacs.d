@@ -162,6 +162,9 @@
 (use-package avy
   :bind ("C-;" . avy-goto-char))
 
+(use-package browse-kill-ring
+  :bind ("C-c k" . browse-kill-ring))
+
 (use-package company
   :init (add-hook 'after-init-hook 'global-company-mode)
   :diminish company-mode
