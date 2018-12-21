@@ -366,6 +366,17 @@
 ;; nginx
 (use-package nginx-mode)
 
+;; OCaml
+(use-package tuareg
+  :config
+  (require 'opam-user-setup "~/.emacs.d/opam-user-setup.el")
+  (use-package flycheck-ocaml))
+(with-eval-after-load 'merlin
+  ;; Disable Merlin's own error checking
+  (setq merlin-error-after-save nil)
+  ;; Enable Flycheck checker
+  (flycheck-ocaml-setup))
+
 ;; Python
 (use-package anaconda-mode
   :init
