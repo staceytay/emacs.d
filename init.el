@@ -82,6 +82,7 @@
   (("C-s" . swiper)
    ("C-x C-f" . counsel-find-file)
    ("C-x f" . counsel-recentf)
+   ("C-c k" . counsel-yank-pop)
    :map ivy-minibuffer-map
    ("<return>" . ivy-alt-done)
    ("C-j" . ivy-immediate-done)
@@ -161,9 +162,6 @@
 
 (use-package avy
   :bind ("C-;" . avy-goto-char))
-
-(use-package browse-kill-ring
-  :bind ("C-c k" . browse-kill-ring))
 
 (use-package company
   :init (add-hook 'after-init-hook 'global-company-mode)
