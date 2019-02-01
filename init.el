@@ -185,6 +185,7 @@
   "Add BACKEND to a buffer-local version of `company-backends'."
   (set (make-local-variable 'company-backends)
        (append (list backend) company-backends)))
+;; (setq-default company-backends '(company-files (company-capf company-dabbrev-code) company-dabbrev))
 
 (use-package diff-hl
   :config (add-hook 'prog-mode-hook 'turn-on-diff-hl-mode))
@@ -230,6 +231,7 @@
 
 (use-package highlight-indent-guides
   :init (add-hook 'prog-mode-hook 'highlight-indent-guides-mode)
+  :diminish highlight-indent-guides-mode
   :config (setq highlight-indent-guides-method 'character
                 highlight-indent-guides-responsive 'top))
 
@@ -246,9 +248,11 @@
   (diminish 'auto-revert-mode)
   (setq auto-revert-verbose nil
         global-auto-revert-non-file-buffers t)
+  (setq ediff-split-window-function 'split-window-horizontally)
   (setq-default magit-diff-refine-hunk t)
   (use-package fullframe
     :config (fullframe magit-status magit-mode-quit-window))
+  (use-package forge)
   (use-package git-link))
 
 (use-package origami
@@ -450,3 +454,26 @@
   :config (setq olivetti-body-width 92))
 
 (put 'narrow-to-region 'disabled nil)
+
+
+
+;; From http://endlessparentheses.com/fill-and-unfill-paragraphs-with-a-single-key.html
+(defun endless/fill-or-unfill ()
+  "Like `fill-paragraph', but unfill if used twice."
+  (interactive)
+  (let ((fill-column
+         (if (eq last-command 'endless/fill-or-unfill)
+             (progn (setq this-command nil)
+                    (point-max))
+           fill-column)))
+    (call-interactively #'fill-paragraph)))
+(global-set-key [remap fill-paragraph] #'endless/fill-or-unfill)
+
+(use-package drag-stuff
+  :bind (:map evil-visual-state-map
+              ("M-p" . drag-stuff-up)
+              ("M-n" . drag-stuff-down)))
+
+
+
+(set-fontset-font t 'unicode "Apple Color Emoji" nil 'prepend)
