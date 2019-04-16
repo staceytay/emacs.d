@@ -247,6 +247,7 @@
   (diminish 'auto-revert-mode)
   (setq auto-revert-verbose nil
         global-auto-revert-non-file-buffers t)
+  (setq ediff-split-window-function 'split-window-horizontally)
   (setq-default magit-diff-refine-hunk t)
   (use-package fullframe
     :config (fullframe magit-status magit-mode-quit-window))
