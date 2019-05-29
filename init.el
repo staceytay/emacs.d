@@ -419,6 +419,11 @@
     (add-hook 'web-mode-hook #'add-node-modules-path))
   (use-package company-flow
     :config (add-hook 'web-mode-hook (lambda () (s/local-push-company-backend '(company-flow :with company-dabbrev-code)))))
+  (use-package emmet-mode
+    :diminish emmet-mode
+    :config
+    (add-hook 'web-mode-hook  'emmet-mode)
+    (setq emmet-expand-jsx-className? t))
   (use-package flow-minor-mode
     :init (add-hook 'web-mode-hook 'flow-minor-mode)
     :diminish flow-minor-mode
