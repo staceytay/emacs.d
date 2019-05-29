@@ -38,8 +38,10 @@
       mouse-wheel-scroll-amount '(1 ((shift) . 5) ((control))))
 
 ;; Color themes
-(use-package color-theme-sanityinc-solarized
-  :init (load-theme 'sanityinc-solarized-dark t))
+(use-package color-theme-sanityinc-solarized)
+
+(use-package night-owl-theme
+  :init (load-theme 'night-owl t))
 
 ;;----------------------------------------------------------------------------
 ;; Emacs Stuff
@@ -70,7 +72,6 @@
   :init (add-hook 'after-init-hook 'global-anzu-mode)
   :diminish anzu-mode
   :config
-  (set-face-attribute 'anzu-replace-highlight nil :background (face-attribute 'font-lock-string-face :foreground) :foreground (face-attribute 'default :background))
   (global-set-key [remap query-replace] 'anzu-query-replace)
   (global-set-key [remap query-replace-regexp] 'anzu-query-replace-regexp))
 
@@ -207,8 +208,7 @@
   (use-package evil-goggles
     :diminish evil-goggles-mode
     :config
-    (evil-goggles-mode)
-    (evil-goggles-use-diff-faces))
+    (evil-goggles-mode))
   (use-package evil-surround
     :ensure t
     :config (global-evil-surround-mode 1))
@@ -412,12 +412,6 @@
    web-mode-enable-auto-quoting nil
    web-mode-markup-indent-offset 2)
   (set-face-attribute 'web-mode-html-attr-equal-face nil
-                      :foreground (face-attribute 'default :foreground))
-  (set-face-attribute 'web-mode-html-attr-name-face nil
-                      :foreground (face-attribute 'font-lock-variable-name-face :foreground))
-  (set-face-attribute 'web-mode-html-tag-bracket-face nil
-                      :foreground (face-attribute 'default :foreground))
-  (set-face-attribute 'web-mode-html-tag-face nil
                       :foreground (face-attribute 'default :foreground))
   (use-package add-node-modules-path
     :config
