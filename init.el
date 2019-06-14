@@ -246,7 +246,8 @@
   (global-auto-revert-mode)
   (diminish 'auto-revert-mode)
   (setq auto-revert-verbose nil
-        global-auto-revert-non-file-buffers t)
+        global-auto-revert-non-file-buffers t
+        trash-directory (expand-file-name ".Trash" (getenv "HOME")))
   (setq ediff-split-window-function 'split-window-horizontally)
   (setq-default magit-diff-refine-hunk t)
   (use-package fullframe
