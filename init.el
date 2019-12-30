@@ -66,6 +66,7 @@
  indent-tabs-mode nil
  indicate-empty-lines t
  make-backup-files nil)
+(set-face-attribute 'default nil :height 160)
 (show-paren-mode 1)
 
 (use-package anzu
